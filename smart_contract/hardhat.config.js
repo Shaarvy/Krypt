@@ -8,8 +8,8 @@ module.exports = {
   solidity: '0.8.0',
   networks: {
     sepolia: {
-      url: '', //Add your url
-      accounts: []; //Add your private key
+      url: //Add your url,
+      accounts: //Add your private key
     }
   }
 }

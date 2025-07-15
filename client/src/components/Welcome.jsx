@@ -19,10 +19,13 @@ const Input = ({placeholder, name, type, value, handleChange}) => (
 );
 
 const Welcome = () => {
-    const { connectWallet, currentAccount } = useContext(TransactionContext);
+    const { connectWallet, currentAccount, formData, handleChange, sendTransaction } = useContext(TransactionContext);
   
-    const handleSubmit = () => {
-
+    const handleSubmit = (e) => {
+        const {addressTo, amount, keyword, message} = formData;
+        e.preventDefault();
+        if(!addressTo || !amount || !keyword || !message) return;
+        sendTransaction();
     }
 
     return (
@@ -39,12 +42,15 @@ const Welcome = () => {
                         <button
                             type="button"
                             onClick={connectWallet}
-                            className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-4 cursor-pointer hover:bg-[#2546bd]"
+                            className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
                         >
-                            <p className="text-white text-base font-semibold">Connect Wallet</p>
-
+                            <AiFillPlayCircle className="text-white mr-2" />
+                            <p className="text-white text-base font-semibold">
+                                Connect Wallet
+                            </p>
                         </button>
                     )}
+
                     <div className="grid sm:grid-cols-3 grip-cols-2 w-full mt-10">
                         <div className={`rounded-tl-2xl ${commonStyles}`}>
                             Reliability
@@ -87,17 +93,17 @@ const Welcome = () => {
                         </div>
                     </div>
                     <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
-                        <Input placeholder="Address To" name="addressTo" typr="text" handleChange={() => {}} />
-                        <Input placeholder="Amount (ETH)" name="amount" typr="number" handleChange={() => {}} />
-                        <Input placeholder="Keyword (Gif) " name="keyword" typr="text" handleChange={() => {}} />
-                        <Input placeholder="Enter Message" name="message" typr="text" handleChange={() => {}} />
+                        <Input placeholder="Address To" name="addressTo" type="text" handleChange={ handleChange } />
+                        <Input placeholder="Amount (ETH)" name="amount" type="number" handleChange={ handleChange } />
+                        <Input placeholder="Keyword (Gif) " name="keyword" type="text" handleChange={ handleChange } />
+                        <Input placeholder="Enter Message" name="message" type="text" handleChange={ handleChange } />
                         <div className="h-[1px] w-full bg-gray-400 my-2 " />
                         {false ? (
                             <Loader />
                         ) : (
                             <button
                                 type="button"
-                                onClick={handleSubmit}
+                                onClick={ handleSubmit }
                                 className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] rounded-full cursor-pointer"
                             >
                                 Send Now
