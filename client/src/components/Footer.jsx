@@ -24,6 +24,6 @@ const Footer = () => (
             <p className="text-white text-right text-xs">All rights reserved</p>
         </div>
     </div>
-)
+);
 
 export default Footer;
